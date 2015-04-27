@@ -1,22 +1,47 @@
-var resultsTable = document.createElement('table');
+var GeoStats = (function () {
 
-resultsTable.appendChild(createTableHeaderRow(['Latitude', 'Longitude', 'Accuracy', 'Time']));
+  // Record current time
+  var startTime = new Date();
 
-var resultsWrapper = document.getElementById('results');
-resultsWrapper.appendChild(resultsTable);
+  // Table
+  var resultsTable = document.createElement('table');
 
-function createTableHeaderRow(columnNames) {
+  // Header Row
+  resultsTable.appendChild(createTableRow(['Latitude', 'Longitude', 'Accuracy', 'Time'], true));
 
-  var row = document.createElement('tr');
+  var resultsWrapper = document.getElementById('results');
+  resultsWrapper.appendChild(resultsTable);
 
-  columnNames.forEach(function(value) {
+  function createTableRow(columnValues, isHeader) {
 
-    var col = document.createElement('th');
-    col.textContent = value;
-    row.appendChild(col);
+    var row = document.createElement('tr');
 
-  });
+    columnValues.forEach(function(value) {
 
-  return row;
+      var col = document.createElement(isHeader ? 'th' : 'td');
+      col.textContent = value;
+      row.appendChild(col);
 
-}
+    });
+
+    return row;
+
+  }
+
+  function recordResults(pos) {
+
+    var now = new Date();
+    var timeDiff = now - startTime;
+
+    resultsTable.appendChild(createTableRow([
+        pos.coords.latitude, pos.coords.longitude,
+        pos.coords.accuracy, timeDiff
+    ]));
+
+  }
+
+  return {
+    recordResults: recordResults
+  }
+
+})();
