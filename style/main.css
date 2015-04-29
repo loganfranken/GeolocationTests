@@ -1,8 +1,7 @@
 body
 {
   font-family: Arial, sans-serif;
-  font-size: 3em;
-  font-weight: bold;
+  font-size: 2em;
 }
 
 h1
@@ -20,4 +19,9 @@ ul
 ul span
 {
   font-weight: normal;
+}
+
+table td, table th
+{
+  padding: 0.25em;
 }
