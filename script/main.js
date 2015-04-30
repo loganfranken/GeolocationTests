@@ -33,10 +33,14 @@ var GeoStats = (function () {
     var now = new Date();
     var timeDiff = now - startTime;
 
-    resultsTable.appendChild(createTableRow([
+    var row = createTableRow([
         pos.coords.latitude, pos.coords.longitude,
         pos.coords.accuracy, timeDiff
-    ]));
+    ]);
+
+    var topRow = resultsTable.firstChild.nextSibling;
+
+    resultsTable.insertBefore(row, topRow);
 
   }
 
